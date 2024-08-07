@@ -11,7 +11,7 @@ Youtube'da Türkçe işaret dili içeren birçok video bulunabileceğinden veris
 
 ## Youtube Üzerinden Seçilen Videoları İndirmek ve Her Frame için İstenilen İnsan İskeletini(Pozlarını) Çıkarmak
 Kaliteli işaret dili ve açıklayıcı ses içeren videoalr bulabilmek prjenin ana sorunlarından biri olmuştu. Bunun nedenleri; poz ve ses arası gecikmeler, işaret dili çeviricisinin ekranın çok küçük bir alanında kalması(mesela haber kanallarında sağ köşede çok küçük bir alan barındırıyor), işaret diliyle her sesin çevirilmemesiydi.
-İnternet üzerinde birçok video araştırıldıktan sonra TRT Haber'in işitme engelliler için özel yaptığı "İşitme Engelliler Haber Bülteni" yayınıyla karşılaştık. Burada ekranın yarısını işaret dili çevirmeni karşılıyor, diğer yarısı da haberi anlatıyordu. Yayındaki 114 haber ile bir veriseti oluşturulmaya başlandı. 
+İnternet üzerinde birçok video araştırıldıktan sonra TRT Haber'in işitme engelliler için özel yaptığı [İşitme Engelliler Haber Bülteni](https://www.youtube.com/playlist?list=PLZ5AxhlnKvj5PGmTHgFPyv7N1X3ScdpWh) yayınıyla karşılaştık. Burada ekranın yarısını işaret dili çevirmeni karşılıyor, diğer yarısı da haberi anlatıyordu. Yayındaki 114 haber ile bir veriseti oluşturulmaya başlandı. 
 
 Karşılaşılan bir diğer zorluk ise videolarda isklete pozlarını çıkarmak oldu. Burada [**OpenPose**](https://github.com/CMU-Perceptual-Computing-Lab/openpose/tree/v1.7.0) kütüphanesi ve [**MediaPipe**](https://github.com/google-ai-edge/mediapipe) kütüphanneleri denenmiştir. Openpose kütüphanesi kullanırken el+poz verisi için 10gb VRAM gerekmekte ve 10dk'lık video için 30dk process sürmekteydi. Mediapipe ise tam zamanlı ve CPU'da bile çalışabilmekte ama ürettiği sonuçlar openpose kadar doğru ve tutarlı olmuyor.
 
