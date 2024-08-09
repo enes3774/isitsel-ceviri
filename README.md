@@ -9,14 +9,24 @@
 
 Amacımız, işitme engelli bireylerin dijital dünyada daha bağımsız olmalarını sağlamak, bilgiye erişimlerini kolaylaştırmak ve onların da kendi dillerinde bilgiye erişmesine olanak vermektir.
 
+![output_gif](https://github.com/user-attachments/assets/87ac29d6-a278-4498-8512-9f98c3168229)
+
 Projemiz Veriseti üretimi ve üretilen verisetini Progressive Transformer modeli ile eğitim yapmak olarak 2'ye ayrılmıştır. 
 
 # Veriseti Üretimi
 ![openpose ile pose çıkarımı](https://github.com/user-attachments/assets/d115ebfd-4f09-411c-b5af-720d7597713f)
 
+İnternet üzerinde Türkçe işaret dili içeren kaynak araması yapıldığında farklı birçok alandan işaret dili videoları bulunmuştur.
 
+![image](https://github.com/user-attachments/assets/1281ffc6-ad27-4cad-ac12-b0f655973a08)
 
-Youtube'da Türkçe işaret dili içeren birçok video bulunabileceğinden verisetini istenilen videolar üzerinden çıkarmak ve kendi verisetleri ile yapay zeka modelini eğitmek isteyenler için verilen videolardan veriseti oluşturma yöntemini paylaşıyoruz.
+Bunların hepsi toplam 100 saat etmekte olup aşağıdaki kodlarla gerekli tüm düzenlemeler yapılabilir haldedir.
+Youtube'da Türkçe işaret dili içeren birçok video bulunabileceğinden sizin verisetini istenilen videolar üzerinden çıkarmak ve kendi verisetleriz ile yapay zeka modelini eğitmek için verilen videolardan veriseti oluşturma yöntemini paylaşıyoruz.
+Kendi videolarınız üzerinde poz çıakrımı yapmak için data_creation klasorune gidip videos.txt dosyasını kendi video url leri ile değiştirmeniz gerekir. 
+1. Video sesleri kullanılarak poz çıkarımı
+2. OpnePose modeli kullanıalrak her frame için poz üretimi
+3. Üretilen pozlar üzerinde hatalar tepit edilip ağrılıklı bi algoritma ile üzerinden geçilmesi
+4. verilerin normalize edilmesi ve poz cümleleri ile metinlerin eşlenmesi
 
 ## Youtube Üzerinden Seçilen Videoları İndirmek ve Her Frame için İstenilen İnsan İskeletini(Pozlarını) Çıkarmak
 Kaliteli işaret dili ve açıklayıcı ses içeren videoalr bulabilmek prjenin ana sorunlarından biri olmuştu. Bunun nedenleri; poz ve ses arası gecikmeler, işaret dili çeviricisinin ekranın çok küçük bir alanında kalması(mesela haber kanallarında sağ köşede çok küçük bir alan barındırıyor), işaret diliyle her sesin çevirilmemesiydi.
@@ -30,4 +40,4 @@ Geliştirilen yapay zeka modeli metin alıp poz verisi ürettiğinden youtube vi
 
 
 
-data_creation klasorune gidip videos.txt dosyasına 
+
