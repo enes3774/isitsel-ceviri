@@ -1,18 +1,16 @@
-# Autoregressive Model Mimarisi Kurulumu ve Eğitimi
-Geliştirdiğimiz model giriş olarak aldığı metin cümlesini işleyerek encodera aktarır, decoder modeli ise pose verilerini üretir. Üretilen poz verileri giriş cümlesinin işaret diline çevrilmiş halidir.
+# Progressive Transformer Model Mimarisi Kurulumu ve Eğitimi
+Geliştirdiğimiz model giriş olarak aldığı metin cümlesini işleyerek encodera aktarır, decoder modeli ise auto-regressive şekilde pose verilerini üretir. Üretilen poz verileri giriş cümlesinin işaret diline çevrilmiş halidir.
 
 <img src="https://github.com/user-attachments/assets/9980cb33-2947-43a8-b54d-63581d861fdd" alt="model_architecture" width="600" height="600">
 
 
 
 Model geliştirilirken öğrenmeyi hızlandırmak için embedding katmanının ağırlıklarını sıfırdan başlatmak yerine FastText_large modeli ile verisetindeki kelimelere vektörlere dönüştürülmüştür.
-Bu klasorun içerisine fasttext_large modelini buradan indirmeniz ve kurmanız gerekmektedir.
-Modeli başlatmadan önce aşağıdaki klasor yapısına sahip olduğunuzadan emin olun. 
-
-
-
 
 [ornek_data](https://github.com/user-attachments/assets/19e97485-69a0-4194-8a1e-fe4816a8d4ff)
+
+Bu klasorun içerisine fasttext_large modelini buradan indirmeniz ve kurmanız gerekmektedir.
+Modeli başlatmadan önce aşağıdaki klasor yapısına sahip olduğunuzadan emin olun. 
 
 
 
@@ -23,25 +21,24 @@ Modeli başlatmadan önce aşağıdaki klasor yapısına sahip olduğunuzadan em
 - **Models/**: Önceden eğitilmiş modeller ve yeni oluşturulan modeller burada saklanır.
 - **external_metrics/**: Modelleri değerlendirmek için kullanılan dış metrik betikleri veya dosyaları içerir.
 - **optim/**: Optimizasyon ile ilgili betikler ve dosyalar.
-- **scripts/**: Genel amaçlı betikler ve yardımcı fonksiyonlar:
-  - `batch.py`: Batch işleme işlemlerini yönetir.
-  - `builders.py`: Modeller ve diğer yapıları oluşturur.
-  - `constants.py`: Proje genelinde kullanılan sabit değerler.
-  - `data.py`: Veri işleme ve ön işleme işlevleri.
-  - `dtw.py`: Dynamic Time Warping (DTW) ile ilgili işlevler.
-  - `embeddings.py`: Gömme (embedding) modelleri ve araçları.
-  - `encoders.py`: Encoder katmanları ve işlevleri.
-  - `helpers.py`: Yardımcı fonksiyonlar ve araçlar.
-  - `initialization.py`: Modellerin ve parametrelerin başlatılması.
-  - `loss.py`: Eğitimde kullanılan kayıp fonksiyonları.
-  - `metrics.py`: Metriği hesaplayan fonksiyonlar ve araçlar.
-  - `model.py`: Model tanımları.
-  - `plot_videos.py`: Video verilerini çizmek veya görselleştirmek için kullanılan betikler.
-  - `prediction.py`: Tahmin ve çıkarım betikleri.
-  - `search.py`: Model çıktıları veya verilerde arama yapmak için.
-  - `transformer_layers.py`: Transformer katmanlarının implementasyonu.
-  - `training.py`: Eğitim döngüsü ve ilgili fonksiyonlar.
-  - `vocabulary.py`: Kelime hazinesi yönetimi ve araçlar.
+- `batch.py`: Batch işleme işlemlerini yönetir.
+- `builders.py`: Modeller ve diğer yapıları oluşturur.
+- `constants.py`: Proje genelinde kullanılan sabit değerler.
+- `data.py`: Veri işleme ve ön işleme işlevleri.
+- `dtw.py`: Dynamic Time Warping (DTW) ile ilgili işlevler.
+- `embeddings.py`: Gömme (embedding) modelleri ve araçları.
+- `encoders.py`: Encoder katmanları ve işlevleri.
+- `helpers.py`: Yardımcı fonksiyonlar ve araçlar.
+- `initialization.py`: Modellerin ve parametrelerin başlatılması.
+- `loss.py`: Eğitimde kullanılan kayıp fonksiyonları.
+- `metrics.py`: Metriği hesaplayan fonksiyonlar ve araçlar.
+- `model.py`: Model tanımları.
+- `plot_videos.py`: Video verilerini çizmek veya görselleştirmek için kullanılan betikler.
+- `prediction.py`: Tahmin ve çıkarım betikleri.
+- `search.py`: Model çıktıları veya verilerde arama yapmak için.
+- `transformer_layers.py`: Transformer katmanlarının implementasyonu.
+- `training.py`: Eğitim döngüsü ve ilgili fonksiyonlar.
+- `vocabulary.py`: Kelime hazinesi yönetimi ve araçlar.
 
 - **checkpoints/**: Model kontrol noktalarının kaydedildiği dizin.
 - **FastText_large.model**: Önceden eğitilmiş FastText modeli ve ilgili dosyalar.
