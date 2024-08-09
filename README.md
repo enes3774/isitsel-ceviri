@@ -1,12 +1,21 @@
 # İşitsel Çeviri
-İşitsel Çeviri, herhangi bir Türkçe videonun sesini işleyerek sürekli bir şekilde Türkçe işaret diline çeviren Autoregressive transformer mimarisine dayalı bir yapay zeka modelidir.
+
+İşitsel Çeviri, herhangi bir Türkçe videonun sesini işleyerek sürekli bir şekilde Türkçe işaret diline çeviren [Progressive Transformer mimarisine](https://arxiv.org/pdf/2004.14874) dayalı bir yapay zeka modelidir.
+
+![örnek_grafik](https://github.com/user-attachments/assets/9712cd36-baf5-4355-8ac6-6ac494f72aed)
 
 # Projenin Motivasyonu
-İşitme engelli bireyler, ilk öğrendikleri dilin işaret dili olduğundan Türkçe okuma ve yazmada zorluk çekmektedirler. Bu yüzden haber ve eğitim gibi platformalarda konuşmaları işaret dili ile açıklayan kişiler bulunmaktadır. Fakat bunun dışındaki bir konuda bir videoda işaret dili bulunmadığından anlamaları çok zor olmaktadır. Projemizin asıl motivasyonu, işitme engelli bireylerin herhangi bir videoyu kendi dillerinde, yani işaret diliyle anlayabilmeleri için videoları işaret diline çeviren bir yapay zeka sistemi geliştirilmiştir. Bu sayede, işitme engelliler de tüm dijital içeriklerden eşit bir şekilde faydalanabilecek ve bilgiye erişim konusunda engelleri aşabileceklerdir.
+İşitme engelliler, çevresiyle iletişim kurmada ve günümüz internet çağında bilgiye ulaşmada işaret dilini kullanmak zorundadırlar. Fakat onların diline çeviri sunan kaynaklar neredeyse yok denebilir. Bu, toplumdan işitme engellilerin soyutlanması ve onların bilgiye erişimini kısıtlamaktadır. Projemizin asıl motivasyonu, işitme engelli bireylerin herhangi bir videoyu veya metni kendi dillerinde, yani işaret diliyle anlayabilmeleri için videoları işaret diline çeviren bir yapay zeka sistemi geliştirilmiştir.
 
 Amacımız, işitme engelli bireylerin dijital dünyada daha bağımsız olmalarını sağlamak, bilgiye erişimlerini kolaylaştırmak ve onların da kendi dillerinde bilgiye erişmesine olanak vermektir.
 
+Projemiz Veriseti üretimi ve üretilen verisetini Progressive Transformer modeli ile eğitim yapmak olarak 2'ye ayrılmıştır. 
+
 # Veriseti Üretimi
+![openpose ile pose çıkarımı](https://github.com/user-attachments/assets/d115ebfd-4f09-411c-b5af-720d7597713f)
+
+
+
 Youtube'da Türkçe işaret dili içeren birçok video bulunabileceğinden verisetini istenilen videolar üzerinden çıkarmak ve kendi verisetleri ile yapay zeka modelini eğitmek isteyenler için verilen videolardan veriseti oluşturma yöntemini paylaşıyoruz.
 
 ## Youtube Üzerinden Seçilen Videoları İndirmek ve Her Frame için İstenilen İnsan İskeletini(Pozlarını) Çıkarmak
