@@ -1,60 +1,61 @@
 # İşitsel Çeviri
 
-İşitsel Çeviri, herhangi bir Türkçe videonun sesini işleyerek sürekli bir şekilde Türkçe işaret diline çeviren [Progressive Transformer mimarisine](https://arxiv.org/pdf/2004.14874) dayalı bir yapay zeka modelidir.
+**İşitsel Çeviri**, herhangi bir Türkçe videonun sesini işleyerek sürekli bir şekilde Türkçe işaret diline çeviren, [Progressive Transformer mimarisine](https://arxiv.org/pdf/2004.14874) dayalı bir yapay zeka modelidir.
 
-![örnek_grafik](https://github.com/user-attachments/assets/9712cd36-baf5-4355-8ac6-6ac494f72aed)
+![Örnek Grafik](https://github.com/user-attachments/assets/9712cd36-baf5-4355-8ac6-6ac494f72aed)
 
-# Projenin Motivasyonu
-İşitme engelliler, çevresiyle iletişim kurmada ve günümüz internet çağında bilgiye ulaşmada işaret dilini kullanmak zorundadırlar. Fakat onların diline çeviri sunan kaynaklar neredeyse yok denebilir. Bu, toplumdan işitme engellilerin soyutlanması ve onların bilgiye erişimini kısıtlamaktadır. Projemizin asıl motivasyonu, işitme engelli bireylerin herhangi bir videoyu veya metni kendi dillerinde, yani işaret diliyle anlayabilmeleri için videoları işaret diline çeviren bir yapay zeka sistemi geliştirilmiştir.
+## Projenin Motivasyonu
 
-Amacımız, işitme engelli bireylerin dijital dünyada daha bağımsız olmalarını sağlamak, bilgiye erişimlerini kolaylaştırmak ve onların da kendi dillerinde bilgiye erişmesine olanak vermektir.
+İşitme engelliler, çevresiyle iletişim kurmada ve günümüz internet çağında bilgiye ulaşmada işaret dilini kullanmak zorundadırlar. Fakat onların diline çeviri sunan kaynaklar neredeyse yok denecek kadar azdır. Bu durum, işitme engellilerin toplumdan soyutlanmasına ve bilgiye erişimlerinin kısıtlanmasına yol açmaktadır. Projemizin asıl motivasyonu, işitme engelli bireylerin herhangi bir videoyu veya metni kendi dillerinde, yani işaret diliyle anlayabilmeleri için bir yapay zeka sistemi geliştirmektir.
 
-![output_gif](https://github.com/user-attachments/assets/87ac29d6-a278-4498-8512-9f98c3168229)
+Amacımız, işitme engelli bireylerin dijital dünyada daha bağımsız olmalarını sağlamak, bilgiye erişimlerini kolaylaştırmak ve onların da kendi dillerinde bilgiye erişmelerine olanak vermektir.
 
-Projemiz Veriseti üretimi ve üretilen verisetini Progressive Transformer modeli ile eğitim yapmak olarak 2'ye ayrılmıştır. 
+![Output GIF](https://github.com/user-attachments/assets/87ac29d6-a278-4498-8512-9f98c3168229)
 
-# Veriseti Üretimi
-![openpose ile pose çıkarımı](https://github.com/user-attachments/assets/d115ebfd-4f09-411c-b5af-720d7597713f)
+Projemiz, veriseti üretimi ve üretilen verisetini Progressive Transformer modeli ile eğitmek olmak üzere iki aşamaya ayrılmıştır.
 
-İnternet üzerinde Türkçe işaret dili içeren kaynak araması yapıldığında farklı birçok alandan işaret dili videoları bulunmuştur.
+## Veriseti Üretimi
 
-![image](https://github.com/user-attachments/assets/1281ffc6-ad27-4cad-ac12-b0f655973a08)
+![OpenPose ile Poz Çıkarımı](https://github.com/user-attachments/assets/d115ebfd-4f09-411c-b5af-720d7597713f)
 
-Bunların hepsi toplam 100 saatlik etmekte olup aşağıdaki kodlarla gerekli tüm düzenlemeler yapılabilir haldedir.
-Youtube'da Türkçe işaret dili içeren birçok video bulunabileceğinden sizin verisetini istenilen videolar üzerinden çıkarmak ve kendi verisetleriz ile yapay zeka modelini eğitmek için verilen videolardan veriseti oluşturma yöntemini paylaşıyoruz.
-Kendi videolarınız üzerinde poz çıkarımı yapmak için data_creation klasorune gidip videos.txt dosyasını kendi video url leri ile değiştirmeniz gerekir. 
-1. Video sesleri kullanılarak poz çıkarımı
-2. OpnePose modeli kullanıalrak her frame için poz üretimi
-3. Üretilen pozlar üzerinde hatalar tepit edilip ağrılıklı bi algoritma ile üzerinden geçilmesi
-4. verilerin normalize edilmesi ve poz cümleleri ile metinlerin eşlenmesi
+İnternet üzerinde Türkçe işaret dili içeren kaynaklar araştırılarak farklı alanlardan işaret dili videoları bulunmuştur.
 
-## Youtube Üzerinden Seçilen Videoları İndirmek ve Her Frame için İstenilen İnsan İskeletini(Pozlarını) Çıkarmak
-Kaliteli işaret dili ve açıklayıcı ses içeren videoalr bulabilmek prjenin ana sorunlarından biri olmuştu. Bunun nedenleri; poz ve ses arası gecikmeler, işaret dili çeviricisinin ekranın çok küçük bir alanında kalması(mesela haber kanallarında sağ köşede çok küçük bir alan barındırıyor), işaret diliyle her sesin çevirilmemesiydi.
-İnternet üzerinde birçok video araştırıldıktan sonra TRT Haber'in işitme engelliler için özel yaptığı [İşitme Engelliler Haber Bülteni](https://www.youtube.com/playlist?list=PLZ5AxhlnKvj5PGmTHgFPyv7N1X3ScdpWh) yayınıyla karşılaştık. Burada ekranın yarısını işaret dili çevirmeni karşılıyor, diğer yarısı da haberi anlatıyordu. Yayındaki 114 haber ile bir veriseti oluşturulmaya başlandı. 
+![Image](https://github.com/user-attachments/assets/1281ffc6-ad27-4cad-ac12-b0f655973a08)
 
-Karşılaşılan bir diğer zorluk ise videolarda isklete pozlarını çıkarmak oldu. Burada [**OpenPose**](https://github.com/CMU-Perceptual-Computing-Lab/openpose/tree/v1.7.0) kütüphanesi ve [**MediaPipe**](https://github.com/google-ai-edge/mediapipe) kütüphanneleri denenmiştir. Openpose kütüphanesi kullanırken el+poz verisi için 10gb VRAM gerekmekte ve 10dk'lık video için 30dk process sürmekteydi. Mediapipe ise tam zamanlı ve CPU'da bile çalışabilmekte ama ürettiği sonuçlar openpose kadar doğru ve tutarlı olmuyor.
+Bu videoların toplam süresi 100 saati bulmaktadır ve aşağıdaki kodlarla gerekli tüm düzenlemeler yapılabilir hale getirilmiştir. YouTube'da Türkçe işaret dili içeren birçok video bulunduğundan, istenilen videolar üzerinden veriseti oluşturma yöntemini paylaşarak, kendi verisetlerinizi oluşturabilir ve yapay zeka modelini eğitebilirsiniz.
 
-Geliştirdiğimiz verisetinde OpenPose kütüphanesi kullanılarak cloud'da GPU kiralayarak pozları çıkarma yoluna gittik. Bu işlemin normalden 3 kat daha yavaş olması nedeniyle videoların sadece bir bölümü verisetine katıldı. Fakat paylaşılan kodlarla tüm videolardan poz çıkarımı yapılabilir.
+Kendi videolarınız üzerinde poz çıkarımı yapmak için `data_creation` klasörüne gidip `videos.txt` dosyasını kendi video URL'leri ile değiştirmeniz gerekir.
+1. Video sesleri kullanılarak poz çıkarımı.
+2. OpenPose modeli kullanılarak her frame için poz üretimi.
+3. Üretilen pozlar üzerinde hatalar tespit edilip ağırlıklı bir algoritma ile yeniden işleme.
+4. Verilerin normalize edilmesi ve poz cümleleri ile metinlerin eşlenmesi.
 
-## Whisper_large_v3 ile Türkçe seslerden metin çıkarımı yapılması
-Geliştirilen yapay zeka modeli metin alıp poz verisi ürettiğinden youtube videolarının metin verisine çevirilmesi lazımdı. Bunun için OpenAI'ın Whiper modeli kullanıldı. Çıkarılan metinler ile o aralıktaki pozlar eşlenerek train, test ve val verisetleri kaydedildi.
+### YouTube Üzerinden Seçilen Videoları İndirmek ve Her Frame için İstenilen İnsan İskeletini (Pozlarını) Çıkarmak
 
-Veriseti üretimi kısmına c
+Kaliteli işaret dili ve açıklayıcı ses içeren videolar bulmak projenin ana sorunlarından biri olmuştur. Bunun nedenleri; poz ve ses arasındaki gecikmeler, işaret dili çeviricisinin ekranın çok küçük bir alanında kalması (örneğin haber kanallarında sağ köşede çok küçük bir alanın kullanılması) ve işaret diliyle her sesin çevrilmemesiydi.
 
+İnternet üzerinde birçok video araştırıldıktan sonra, TRT Haber'in işitme engelliler için özel olarak hazırladığı [İşitme Engelliler Haber Bülteni](https://www.youtube.com/playlist?list=PLZ5AxhlnKvj5PGmTHgFPyv7N1X3ScdpWh) yayını ile karşılaştık. Bu yayında ekranın yarısını işaret dili çevirmeni, diğer yarısını ise haber sunucusu kaplıyordu. Yayındaki 114 haber ile bir veriseti oluşturmaya başlandı.
 
-# Model Üretimi
+Karşılaşılan bir diğer zorluk ise videolardan iskelet pozlarını çıkarmaktı. Burada [**OpenPose**](https://github.com/CMU-Perceptual-Computing-Lab/openpose/tree/v1.7.0) ve [**MediaPipe**](https://github.com/google-ai-edge/mediapipe) kütüphaneleri denenmiştir. OpenPose kütüphanesi kullanırken el+poz verisi için 10 GB VRAM gerekmekte ve 10 dakikalık bir video için 30 dakikalık işlem süresi gerekmekteydi. MediaPipe ise tam zamanlı olarak CPU'da bile çalışabilmekte, ancak ürettiği sonuçlar OpenPose kadar doğru ve tutarlı olmamaktadır.
 
-# Progressive Transformer Model Mimarisi Kurulumu ve Eğitimi
-Geliştirdiğimiz model giriş olarak aldığı metin cümlesini işleyerek encodera aktarır, decoder modeli ise auto-regressive şekilde pose verilerini üretir. Üretilen poz verileri giriş cümlesinin işaret diline çevrilmiş halidir.
+Geliştirdiğimiz verisetinde, OpenPose kütüphanesi kullanılarak bulutta GPU kiralanıp pozlar çıkarıldı. Bu işlemin normalden üç kat daha yavaş olması nedeniyle videoların sadece bir bölümü veriseti olarak kullanıldı. Ancak paylaşılan kodlarla tüm videolardan poz çıkarımı yapılabilir.
 
-<img src="https://github.com/user-attachments/assets/9980cb33-2947-43a8-b54d-63581d861fdd" alt="model_architecture" width="600" height="600">
+### Whisper_large_v3 ile Türkçe Seslerden Metin Çıkarımı
 
-Verisetlerini elde ettikten sonra ![bu adrese](https://github.com/enes3774/isitsel-ceviri/tree/main/model) gidebilir ve model eğitimine başlayabilirsiniz.
+Geliştirilen yapay zeka modeli, metin alıp poz verisi ürettiğinden, YouTube videolarının metin verisine çevrilmesi gerekiyordu. Bunun için OpenAI'ın Whisper modeli kullanıldı. Çıkarılan metinler ile o aralıktaki pozlar eşleştirilerek train, test ve val verisetleri kaydedildi.
 
-# Resimden Video Üretimi
+## Model Üretimi
 
-Projemizin asıl amacı görme engelliler için işaret dili konuşan insan videoları üretmek olduğundan bunun üzerinde stable diffusion modelleri kendi poz verimiz ile çalışır hale getirdik. Burada elde ettiğimi bir örnek videoyu paylaşıyoruz.
+### Progressive Transformer Model Mimarisi Kurulumu ve Eğitimi
 
+Geliştirdiğimiz model, giriş olarak aldığı metin cümlesini işleyerek encodera aktarır. Decoder modeli ise auto-regressive bir şekilde poz verilerini üretir. Üretilen poz verileri, giriş cümlesinin işaret diline çevrilmiş halidir.
 
-https://github.com/user-attachments/assets/6787617b-467d-4e9d-bcf8-e202f7c707cd
+<img src="https://github.com/user-attachments/assets/9980cb33-2947-43a8-b54d-63581d861fdd" alt="Model Mimarisi" width="600" height="600">
 
+Verisetlerini elde ettikten sonra [bu adrese](https://github.com/enes3774/isitsel-ceviri/tree/main/model) gidebilir ve model eğitimine başlayabilirsiniz.
+
+## Resimden Video Üretimi
+
+Projemizin asıl amacı işitme engelliler için işaret dili konuşan insan videoları üretmek olduğundan, bu hedef üzerinde stable diffusion modellerini kendi poz verimiz ile çalışır hale getirdik. Burada elde ettiğimiz bir örnek videoyu paylaşıyoruz.
+
+[Örnek Video](https://github.com/user-attachments/assets/6787617b-467d-4e9d-bcf8-e202f7c707cd)
