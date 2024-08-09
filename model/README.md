@@ -1,5 +1,3 @@
-
-https://github.com/user-attachments/assets/17160628-174e-407e-844c-4584a83adee6
 # Autoregressive Model Mimarisi Kurulumu ve Eğitimi
 Geliştirdiğimiz model giriş olarak aldığı metin cümlesini işleyerek encodera aktarır, decoder modeli ise pose verilerini üretir. Üretilen poz verileri giriş cümlesinin işaret diline çevrilmiş halidir.
 
@@ -12,7 +10,10 @@ Bu klasorun içerisine fasttext_large modelini buradan indirmeniz ve kurmanız g
 Modeli başlatmadan önce aşağıdaki klasor yapısına sahip olduğunuzadan emin olun. 
 
 
-https://github.com/user-attachments/assets/14b8fbec-30db-4d3b-9126-f43c394151ab
+
+
+[ornek_data](https://github.com/user-attachments/assets/19e97485-69a0-4194-8a1e-fe4816a8d4ff)
+
 
 
 ## Proje Yapısı
@@ -56,8 +57,6 @@ python __main__.py train ./Configs/Base.yaml
  ```
 
 Modelin kaç epoch ve kaçıncı steplerde görsel olarak sonuç çıkarmasını istediğinizi config dosyasından ayarlayabilirsiniz. 
-
-
 
 ![output_gif](https://github.com/user-attachments/assets/87ac29d6-a278-4498-8512-9f98c3168229)
 
