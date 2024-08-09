@@ -51,3 +51,10 @@ Geliştirdiğimiz model giriş olarak aldığı metin cümlesini işleyerek enco
 
 Verisetlerini elde ettikten sonra ![bu adrese](https://github.com/enes3774/isitsel-ceviri/tree/main/model) gidebilir ve model eğitimine başlayabilirsiniz.
 
+# Resimden Video Üretimi
+
+Projemizin asıl amacı görme engelliler için işaret dili konuşan insan videoları üretmek olduğundan bunun üzerinde stable diffusion modelleri kendi poz verimiz ile çalışır hale getirdik. Burada elde ettiğimi bir örnek videoyu paylaşıyoruz.
+
+
+https://github.com/user-attachments/assets/6787617b-467d-4e9d-bcf8-e202f7c707cd
+
