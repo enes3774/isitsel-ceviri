@@ -20,9 +20,9 @@ Projemiz Veriseti üretimi ve üretilen verisetini Progressive Transformer model
 
 ![image](https://github.com/user-attachments/assets/1281ffc6-ad27-4cad-ac12-b0f655973a08)
 
-Bunların hepsi toplam 100 saat etmekte olup aşağıdaki kodlarla gerekli tüm düzenlemeler yapılabilir haldedir.
+Bunların hepsi toplam 100 saatlik etmekte olup aşağıdaki kodlarla gerekli tüm düzenlemeler yapılabilir haldedir.
 Youtube'da Türkçe işaret dili içeren birçok video bulunabileceğinden sizin verisetini istenilen videolar üzerinden çıkarmak ve kendi verisetleriz ile yapay zeka modelini eğitmek için verilen videolardan veriseti oluşturma yöntemini paylaşıyoruz.
-Kendi videolarınız üzerinde poz çıakrımı yapmak için data_creation klasorune gidip videos.txt dosyasını kendi video url leri ile değiştirmeniz gerekir. 
+Kendi videolarınız üzerinde poz çıkarımı yapmak için data_creation klasorune gidip videos.txt dosyasını kendi video url leri ile değiştirmeniz gerekir. 
 1. Video sesleri kullanılarak poz çıkarımı
 2. OpnePose modeli kullanıalrak her frame için poz üretimi
 3. Üretilen pozlar üzerinde hatalar tepit edilip ağrılıklı bi algoritma ile üzerinden geçilmesi
@@ -34,10 +34,20 @@ Kaliteli işaret dili ve açıklayıcı ses içeren videoalr bulabilmek prjenin 
 
 Karşılaşılan bir diğer zorluk ise videolarda isklete pozlarını çıkarmak oldu. Burada [**OpenPose**](https://github.com/CMU-Perceptual-Computing-Lab/openpose/tree/v1.7.0) kütüphanesi ve [**MediaPipe**](https://github.com/google-ai-edge/mediapipe) kütüphanneleri denenmiştir. Openpose kütüphanesi kullanırken el+poz verisi için 10gb VRAM gerekmekte ve 10dk'lık video için 30dk process sürmekteydi. Mediapipe ise tam zamanlı ve CPU'da bile çalışabilmekte ama ürettiği sonuçlar openpose kadar doğru ve tutarlı olmuyor.
 
-Geliştirdiğimiz verisetinde OpenPose kütüphanesi kullanılarak cloud'da GPU kiralayarak pozları çıkarma yoluna gittik. Bu işlemin normalden 3 kat daha yavaş olması nedeniyle videoların sadece bir bölümü verisetine katıldı. Fakat paylaşılan kodlarla tüm videolardan  poz çıkarımı yapılabilir.
+Geliştirdiğimiz verisetinde OpenPose kütüphanesi kullanılarak cloud'da GPU kiralayarak pozları çıkarma yoluna gittik. Bu işlemin normalden 3 kat daha yavaş olması nedeniyle videoların sadece bir bölümü verisetine katıldı. Fakat paylaşılan kodlarla tüm videolardan poz çıkarımı yapılabilir.
+
 ## Whisper_large_v3 ile Türkçe seslerden metin çıkarımı yapılması
 Geliştirilen yapay zeka modeli metin alıp poz verisi ürettiğinden youtube videolarının metin verisine çevirilmesi lazımdı. Bunun için OpenAI'ın Whiper modeli kullanıldı. Çıkarılan metinler ile o aralıktaki pozlar eşlenerek train, test ve val verisetleri kaydedildi.
 
+Veriseti üretimi kısmına c
 
 
+# Model Üretimi
+
+# Progressive Transformer Model Mimarisi Kurulumu ve Eğitimi
+Geliştirdiğimiz model giriş olarak aldığı metin cümlesini işleyerek encodera aktarır, decoder modeli ise auto-regressive şekilde pose verilerini üretir. Üretilen poz verileri giriş cümlesinin işaret diline çevrilmiş halidir.
+
+<img src="https://github.com/user-attachments/assets/9980cb33-2947-43a8-b54d-63581d861fdd" alt="model_architecture" width="600" height="600">
+
+Verisetlerini elde ettikten sonra ![bu adrese](https://github.com/enes3774/isitsel-ceviri/tree/main/model) gidebilir ve model eğitimine başlayabilirsiniz.
 
