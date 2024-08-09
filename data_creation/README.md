@@ -1,49 +1,48 @@
+# Video İndirme, Ses ve Poz Çıkarımı
 
-# Verisetindeki videoları indirip ses ve poz çıkarımı
+Bu proje, **İşitme Engelliler Haber Bülteni** YouTube kanalındaki videoları işleyerek metin ve poz verisi çıkarmayı içerir. Bu videolar, işaret dilini gösteren kişinin ekranda büyük bir alan kaplaması nedeniyle seçilmiştir, bu da poz çıkarımındaki hataları azaltır.
 
-Bu projede veriseti olarak internetten araştırıp bulduğumuz  İşitme Engelliler Haber Bülteni kanalındaki videoları çektik. Bu seçimin nedeni işaret dilini gösteren 
-kişinin ekranda büyük bir alan kaplaması ve poz çıkarımında hataalrı azaltmak içindi.
-1. Video indirimi ve Whisper kullanımı
-   Eğitilen model metinler üzerinde çalıştığından verisetindeki videolardan metinleri çıkarmamız gerekiyor. Bunun için OpenAI'ın en büyük modeli olan
-   Whisper_large modeli kullanılmıştır. Kullanmak istediğiniz videoları bu klasor altında "videos.txt" dosyasına kaydediniz.
-```
+## 1. Video İndirimi ve Whisper Kullanımı
+
+Eğitilen model metinlerle çalıştığından, verisetindeki videolardan metinleri çıkarmamız gerekiyor. Bunun için OpenAI'ın en büyük modeli olan **Whisper_large** kullanılmıştır. Kullanmak istediğiniz videoları, bu klasör altında bulunan `videos.txt` dosyasına kaydediniz.
+
+Videolardan metin çıkarmak için şu komutu çalıştırın:
+  ```
 python audio_to_text.py
-```
-Videoların metinlerin başlangıç ve bitiş aralıkalrı ile çıkarılmış hali "out.csv" dosyasında bulunacaktır.
+  ```
+Çıkarılan metin, başlangıç ve bitiş zamanlarıyla birlikte `out.csv` dosyasına kaydedilecektir.
 
-Ayrıca orijinal videolar da "sign_videos" klasorune indirilip onların da sadece insan kısmını içeren kesitleri çıkarmak için de aşağdaıki kod kullanılacaktır. Kesilen videolar sign_videos_processed kısmında depolanır.
-```
+Ayrıca, orijinal videolar `sign_videos` klasörüne indirilecek ve aşağıdaki kod kullanılarak videolar sadece insan kısmını içerecek şekilde kırpılacaktır. Kırpılan videolar `sign_videos_processed` klasöründe depolanacaktır.
+  ```
 python video_processing.py
-```
-
-2. Videolardan poz verilerinin çıkarılması
-Burada sizin sistem GPU VRAM'inize göre 2 özellik sunuyoruz. İlki, El ve vücut pozları için OpenPose kullanmak. Bu yaklaşık 12GB VRAM gerektiriyor ve poz çıkarımı yaklaşık 6fps ile çalışıyor.
-İkinci yöntem ise Opeepose ile vücut pozlarını ve el iskeleti için Mediapipe kullanmak. BU sayede 6GB altında çalışabilir ve yaklaşık 10fps ile poz verisi üretebilirisiniz.
-
-- OpenPose Full Body+ Hands(12GB VRAM)
-Öncelikle openpose inference kütüphanesini [buradan](https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation/0_index.md#windows-portable-demo) yükleyip kurmanız gerekiyor. 
-İndirdikten bu kod ile poz verilerini kaydediniz
-  ```
-  python only_openpose.py
-  ```
-- OpenPose Full Body+  Mediapipe Hands(4 VRAM)
-Openpose'u sadece vücut pozlarını çıkarmak için kullannırken öncelikle aynı linkten OpenPose'u kurunuz.
-  ```
-  python openpsoe_body_process.py
-  ```
-  
-  Vücut noktalarından sonra mediapipe aynı verileri işleyip el noktaları ile dolduruyor.
-  Burada Mediapipe kütüphanesini ve modelleir indirmiş olmak gerekiyor. Poz çıkarımı tam zamanlı şekilde olduğundan çok zaman almamaktadır. Verilerin hepsi "pose_results" kısmına kaydediliyor.
-  
-  ```
-  mediapipe_hand_gesture_estimation.py
   ```
 
-  
-    
-  Mediapipe ve openpose'un birlikte çalışmasını sağlarken bunların uyumlu çalışması için birçok process eklenmiştir. Bunlar içerisinde verilerin normalize edilmesi,
-   eksik poz verileri tespit edilip aralarının ağırlıklı bir algoritma ile doldurulması, openpose bilek verisi ve mediapipe ile tespit edilen elin başlangıcının aynı konuma getirilmesi ve düzeltilmesi mümkün olmayan kareler tespit edilip çıkartılması yer almaktadır.
-  Tüm bunları aşağıdaki kod ile çalıştırıp verilein düzenlenmiş ve  yapay zeka modeli için kullanılabilir forma getirilmis hali "processed_poses" dosyasına kaydedilecektir.
+## 2. Videolardan Poz Verilerinin Çıkarılması
+
+Sisteminize ait GPU VRAM'e bağlı olarak, poz çıkarımı için iki seçenek sunuyoruz. İlk seçenek, hem el hem de vücut pozları için OpenPose kullanmak, bu yaklaşık 12GB VRAM gerektirir ve yaklaşık 6fps hızında çalışır. İkinci seçenek, vücut pozları için OpenPose ve el iskeletleri için Mediapipe kullanmak, bu 6GB VRAM altında çalışabilir ve yaklaşık 10fps hızında poz verisi üretebilir.
+
+### Seçenek 1: OpenPose Full Body + Hands (12GB VRAM)
+Öncelikle, [buradan](https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation/0_index.md#windows-portable-demo) OpenPose inference kütüphanesini indirip kurmanız gerekiyor.
+
+Sonrasında, aşağıdaki kod ile poz verilerini kaydediniz:
   ```
-  hand_body_data_processing.py
+python only_openpose.py
   ```
+
+### Seçenek 2: OpenPose Full Body + Mediapipe Hands (4GB VRAM)
+Bu seçenekte, OpenPose sadece vücut pozlarını çıkarmak için kullanılacak. Öncelikle OpenPose'u aynı bağlantıdan indirip kurunuz.
+
+Ardından, şu kodu çalıştırın:
+  ```
+python openpose_body_process.py
+  ```
+
+Vücut anahtar noktaları çıkarıldıktan sonra, Mediapipe aynı verileri işleyerek el anahtar noktalarını dolduracaktır. Mediapipe kütüphanesi ve modellerinin önceden indirilmiş olduğundan emin olun. Poz çıkarımı gerçek zamanlı olduğundan, fazla zaman almaz. Tüm veriler `pose_results` klasörüne kaydedilir.
+  ```
+python mediapipe_hand_gesture_estimation.py
+  ```
+
+Mediapipe ve OpenPose'un uyumlu çalışmasını sağlamak için birkaç işlem eklenmiştir. Bunlar, verilerin normalize edilmesi, eksik poz verilerinin ağırlıklı bir algoritma ile doldurulması, OpenPose bilek verisi ile Mediapipe tarafından tespit edilen el başlangıç noktalarının aynı konuma getirilmesi ve düzeltilemeyen karelerin çıkarılması gibi işlemleri içerir.
+
+Bu işlemleri çalıştırarak düzenlenmiş ve yapay zeka modeli için kullanılabilir formda veriler elde etmek için şu kodu çalıştırın:
+python finalize_pose_data.py
